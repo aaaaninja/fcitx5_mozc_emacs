@@ -101,7 +101,7 @@ build() {
 
   cd mozc/src
 
-  _targets="server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx5/fcitx5.gyp:fcitx5-mozc"
+  _targets="server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx5/fcitx5.gyp:fcitx5-mozc unix/emacs/emacs.gyp:mozc_emacs_helper"
 
   QTDIR=/usr GYP_DEFINES="document_dir=/usr/share/licenses/$pkgname use_libzinnia=1" python2 build_mozc.py gyp
   python2 build_mozc.py build -c $_bldtype $_targets
@@ -165,4 +165,5 @@ package() {
   install -m 644 "$srcdir/fcitx-mozc-icons/mozc-properties.png" "${pkgdir}/usr/share/fcitx5/mozc/icon/mozc-properties.png"
   install -m 644 "$srcdir/fcitx-mozc-icons/mozc-tool.png" "${pkgdir}/usr/share/fcitx5/mozc/icon/mozc-tool.png"
 
+  install -D -m 755 out_linux/${_bldtype}/mozc_emacs_helper "${pkgdir}/usr/bin/mozc_emacs_helper"
 }
